@@ -59,7 +59,7 @@ router.delete('/:id', async (req, res) => {
   const { id } = req.params
   prisma.user.delete({ where: { id: Number(id) } })
 
-  res.status(200).json({ error: "User Deleted" })
+  res.status(200)
 })
 
 export default router;

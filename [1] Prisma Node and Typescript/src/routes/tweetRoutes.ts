@@ -35,12 +35,28 @@ router.get('/:id', async (req, res) => {
 })
 
 //update Tweet
-router.put('/:id', (req, res) => {
-  res.status(501).json({ error: "Not Implemented" })
+router.put('/:id', async (req, res) => {
+  const { id } = req.params
+
+  const { content, image } = req.body
+  try {
+    const result = prisma.tweet.update({
+      where: { id: Number(id) },
+      data: {
+        content,
+        image
+      }
+    })
+    res.json(result)
+  } catch (e) {
+    res.status(400).json({ error: "Failed To update Tweet" })
+  }
 })
 
 //delete Tweet
 router.delete('/:id', (req, res) => {
+  const { id } = req.params
+  prisma.tweet.delete({ where: { id: Number(id) } })
   res.status(501).json({ error: "Not Implemented" })
 })
 export default router
