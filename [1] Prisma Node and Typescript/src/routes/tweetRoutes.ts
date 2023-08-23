@@ -25,19 +25,16 @@ router.post('/', async (req, res) => {
 //list of all  Tweets
 router.get('/', async (req, res) => {
   const result = await prisma.tweet.findMany({
-    include: { User: true },
-    // select: {
-    //   id: true,
-    //   content: true,
-    //   User: {
-    //     select: {
-    //       id: true,
-    //       name: true,
-    //       username: true,
-    //       image: true
-    //     }
-    //   }
-    // }
+    include: {
+      User: {
+        select: {
+          id: true,
+          name: true,
+          username: true,
+          image: true,
+        }
+      }
+    },
   })
   res.json(result)
 })
@@ -45,7 +42,11 @@ router.get('/', async (req, res) => {
 //get one Tweet
 router.get('/:id', async (req, res) => {
   const { id } = req.params
-  const result = await prisma.tweet.findUnique({ where: { id: Number(id) } })
+  const result = await prisma.tweet.findUnique({
+    where: { id: Number(id) },
+    include: { User: true }
+  }
+  )
   res.json(result)
 })
 
