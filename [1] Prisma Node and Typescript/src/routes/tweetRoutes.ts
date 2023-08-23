@@ -57,6 +57,6 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', (req, res) => {
   const { id } = req.params
   prisma.tweet.delete({ where: { id: Number(id) } })
-  res.status(501).json({ error: "Not Implemented" })
+  res.status(200).json({ message: "Deleted" })
 })
 export default router
