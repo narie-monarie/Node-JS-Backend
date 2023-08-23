@@ -40,7 +40,7 @@ router.put('/:id', async (req, res) => {
 
   const { content, image } = req.body
   try {
-    const result = prisma.tweet.update({
+    const result = await prisma.tweet.update({
       where: { id: Number(id) },
       data: {
         content,
@@ -54,9 +54,9 @@ router.put('/:id', async (req, res) => {
 })
 
 //delete Tweet
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params
-  prisma.tweet.delete({ where: { id: Number(id) } })
+  await prisma.tweet.delete({ where: { id: Number(id) } })
   res.status(200).json({ message: "Deleted" })
 })
 export default router
