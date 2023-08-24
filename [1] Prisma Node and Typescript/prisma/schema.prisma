@@ -21,6 +21,12 @@ model User {
   tweets     Tweet[]
 }
 
+model Token {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
 model Tweet {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
